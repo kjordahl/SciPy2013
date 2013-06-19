@@ -54,7 +54,7 @@ will install the current development version of Shapely.
 Known installation issues
 -------------------------
 
-- Importing shapely in Canopy version 1.0.1 on OS X `fails`_ while loading the GEOS library, and throws an exception of the form `OSError: Could not find library c or load any of its variants`.  This can be fixed by upgrading to Canopy 1.0.3 or worked around by setting the following environment variable::
+- Importing shapely in Canopy version 1.0.1 on OS X `fails`_ while loading the GEOS library, and throws an exception of the form `OSError: Could not find library c or load any of its variants`.  This can be fixed by upgrading to Canopy 1.0.3 (available soon) or worked around by setting the following environment variable::
 
     export DYLD_FALLBACK_LIBRARY_PATH=$(HOME)/lib:/usr/local/lib:/lib:/usr/lib
 
