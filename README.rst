@@ -30,7 +30,7 @@ Optional packages
 Installation instructions
 -------------------------
 
-The standard `scientific python stack`_ is a prerequisite for this tutorial before installing the specific packages listed above.  I recommend starting with a standard scientific python distribution such as `Enthought Canopy`_ or `anaconda`_.  All students for SciPy tutorials will have received a free license for Canopy for a limited period of time (also free for `academic use`_, and anyone can use the free Canopy Express).  Other package managers such as Linux distribution tools or `homebrew` for OS X will work for a starting point as well, though I have not tested these.
+The standard `scientific python stack`_ is a prerequisite for this tutorial before installing the specific packages listed above.  I recommend starting with a standard scientific python distribution such as `Enthought Canopy`_ or `anaconda`_.  All students for SciPy tutorials will have received a free license for Canopy for a limited period of time (also free for `academic use`_, and anyone can use the free Canopy Express).  Other package managers such as Linux distribution tools or `homebrew` for OS X will work for a starting point as well, though I have not tested these.  On Windows you may be able to use `Christoph Golke's binary packages`_.
 
 Install the above packages via your standard package manager when possible.  For packages not available in this way (or if you wish to use a different version than available), you may install directly with `pip` or `easy_install`.  For example, to install Shapely, you may use::
 
@@ -50,6 +50,7 @@ will install the current development version of Shapely.
 .. _anaconda: https://store.continuum.io/cshop/anaconda
 .. _scientific python stack: http://www.scipy.org/install.html
 .. _academic use: https://www.enthought.com/products/canopy/academic
+.. _Christoph Golke's binary packages: http://www.lfd.uci.edu/~gohlke/pythonlibs
 
 Known installation issues
 -------------------------
