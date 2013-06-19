@@ -1,3 +1,5 @@
+This repository contains materials for the tutorial *Using Geospatial Data With Python* to be held Jun 25, 2013, at the SciPy 2013 conference.
+
 Required packages
 -----------------
 
