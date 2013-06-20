@@ -57,3 +57,8 @@ except ImportError:
 else:
     print OK, 'geoJSON is installed'
 
+try:
+    from cartopy import __version__
+    print OK, 'cartopy version', __version__
+except ImportError:
+    print FAIL, 'cartopy not installed'
