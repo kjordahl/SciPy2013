@@ -62,8 +62,9 @@ Known installation issues
 - GDAL binary libraries may not be found even when they are installed, particularly when installing fiona.  The fiona install process uses the command `gdal-config --cflags` to find header files.  This should match your GDAL install location.
 You may need to install GDAL on your system.  A number of `binaries`_ are available, or you could use a package manager such as fink or apt-get, or build it from source.
 
-- Dependency errors installing `psycopg2` in Canopy and EPD.  This may be overcome by downloading the `psycopg2` .egg file from the `Enthought PyPI mirror`_ and installing it manually with the `egginst` command, or with `pip install psycopg2`.
+- Dependency errors installing `psycopg2` in Canopy and EPD.  This may be overcome by downloading the `psycopg2` .egg file from the `Enthought PyPI mirror`_ and installing it manually with the `egginst` command, or with `pip install psycopg2`.  Windows users can try `this binary installer for psycopg2`_ which has been reported to work.
 
 .. _fails: http://stackoverflow.com/questions/17072797/enthought-canopy-cytpes-util-find-library-cant-find-libc
 .. _binaries: http://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries
 .. _Enthought PyPI mirror: https://www.enthought.com/repo/pypi/eggs
+.. _this binary installer for psycopg2: http://www.stickpeople.com/projects/python/win-psycopg/
