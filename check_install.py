@@ -47,6 +47,12 @@ try:
 except ImportError:
     print FAIL, 'Basemap not installed'
 
+try:
+    from psycopg2 import __version__
+    print OK, 'psycopg2 version', __version__
+except ImportError:
+    print FAIL, 'psycopg2 not installed'
+
 print
 print 'Optional packages:'
 
