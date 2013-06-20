@@ -68,3 +68,9 @@ try:
     print OK, 'cartopy version', __version__
 except ImportError:
     print FAIL, 'cartopy not installed'
+    
+try:
+    from sqlalchemy import __version__
+    print OK, 'sqlalchemy version', __version__
+except ImportError:
+    print FAIL, 'sqlalchemy not installed'
