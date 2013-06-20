@@ -44,8 +44,6 @@ Finally, if all else fails, or you wish to be on the bleeding edge, you may inst
 
 will install the current development version of Shapely.
 
-
-
 .. _Enthought Canopy: https://www.enthought.com/products/canopy
 .. _anaconda: https://store.continuum.io/cshop/anaconda
 .. _scientific python stack: http://www.scipy.org/install.html
@@ -55,13 +53,17 @@ will install the current development version of Shapely.
 Known installation issues
 -------------------------
 
-- Importing shapely in Canopy version 1.0.1 on OS X `fails`_ while loading the GEOS library, and throws an exception of the form `OSError: Could not find library c or load any of its variants`.  This can be fixed by upgrading to Canopy 1.0.3 (available soon) or worked around by setting the following environment variable::
+- Importing shapely in Canopy version 1.0.1 on OS X `fails`_ while loading the GEOS library, and throws an exception of the form "OSError: Could not find library c or load any of its variants".  This can be fixed by upgrading to Canopy 1.0.3 (available soon) or worked around by setting the following environment variable::
 
     export DYLD_FALLBACK_LIBRARY_PATH=$(HOME)/lib:/usr/local/lib:/lib:/usr/lib
 
 - The GDAL 1.9.0 package in Canopy fails to find the PROJ.4 library for some operations.  It should work for other use cases.
 
-- Dependency errors installing `psycopg2` in Canopy and EPD.  This may be overcome by downloading the `psycopg2` .egg file from the `Enthought PyPI mirror`_ and installing it manually with the `egginst` command.
+- GDAL binary libraries may not be found even when they are installed, particularly when installing fiona.  The fiona install process uses the command `gdal-config --cflags` to find header files.  This should match your GDAL install location.
+You may need to install GDAL on your system.  A number of `binaries`_ are available, or you could use a package manager such as fink or apt-get, or build it from source.
+
+- Dependency errors installing `psycopg2` in Canopy and EPD.  This may be overcome by downloading the `psycopg2` .egg file from the `Enthought PyPI mirror`_ and installing it manually with the `egginst` command, or with `pip install psycopg2`.
 
 .. _fails: http://stackoverflow.com/questions/17072797/enthought-canopy-cytpes-util-find-library-cant-find-libc
+.. _binaries: http://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries
 .. _Enthought PyPI mirror: https://www.enthought.com/repo/pypi/eggs
