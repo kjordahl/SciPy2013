@@ -4,6 +4,14 @@ Using Geospatial Data With Python
 
 """
 
+
+def import_version(pkg):
+    try:
+        exec('from %s import __version__' % pkg)
+        print OK, '%s version %s' % (pkg, __version__)
+    except ImportError:
+        print FAIL, '%s not installed' % pkg
+
 try:
     import curses
     curses.setupterm()
@@ -17,23 +25,9 @@ except:
 print
 print 'Required packages:'
 
-try:
-    import shapely
-    print OK, 'Shapely version', shapely.__version__
-except ImportError:
-    print FAIL, 'Shapely not installed'
-
-try:
-    import fiona
-    print OK, 'Fiona version', fiona.__version__
-except ImportError:
-    print FAIL, 'Fiona not installed'
-
-try:
-    import pyproj
-    print OK, 'pyproj version', pyproj.__version__
-except ImportError:
-    print FAIL, 'pyproj not installed'
+import_version('shapely')
+import_version('fiona')
+import_version('pyproj')
 
 try:
     import osgeo.gdal
@@ -47,11 +41,7 @@ try:
 except ImportError:
     print FAIL, 'Basemap not installed'
 
-try:
-    from psycopg2 import __version__
-    print OK, 'psycopg2 version', __version__
-except ImportError:
-    print FAIL, 'psycopg2 not installed'
+import_version('psycopg2')
 
 print
 print 'Optional packages:'
@@ -63,14 +53,5 @@ except ImportError:
 else:
     print OK, 'geoJSON is installed'
 
-try:
-    from cartopy import __version__
-    print OK, 'cartopy version', __version__
-except ImportError:
-    print FAIL, 'cartopy not installed'
-    
-try:
-    from sqlalchemy import __version__
-    print OK, 'sqlalchemy version', __version__
-except ImportError:
-    print FAIL, 'sqlalchemy not installed'
+import_version('psycopg2')
+import_version('sqlalchemy')
