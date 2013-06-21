@@ -53,5 +53,5 @@ except ImportError:
 else:
     print OK, 'geoJSON is installed'
 
-import_version('psycopg2')
+import_version('cartopy')
 import_version('sqlalchemy')
