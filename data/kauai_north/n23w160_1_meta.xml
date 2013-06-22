@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE metadata SYSTEM "http://www.fgdc.gov/metadata/fgdc-std-001-1998.dtd"[]>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>U.S. Geological Survey (USGS)</origin>
+        <pubdate>2013</pubdate>
+        <title>National Elevation Dataset (NED)</title>
+        <geoform>raster digital data</geoform>
+        <pubinfo>
+          <pubplace>Sioux Falls, SD</pubplace>
+          <publish>U.S. Geological Survey</publish>
+        </pubinfo>
+        <onlink>http://gisdata.usgs.gov/tdds/downloadfile.php?TYPE=ned1i_zip&amp;ORIG=META&amp;FNAME=n23w160.zip</onlink>
+        <onlink>http://nationalmap.gov/viewer.html</onlink>
+        <edition>2</edition>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>The National Elevation Dataset (NED) is the primary elevation data product produced and distributed by the USGS. The NED provides the best available public domain raster elevation data of the conterminous United States, Alaska, Hawaii, and territorial islands in a seamless format.  The NED is derived from diverse source data, processed to a common coordinate system and unit of vertical measure.  All NED data are distributed in geographic coordinates in units of decimal degrees, and in conformance with the North American Datum of 1983 (NAD 83).  All elevation values are provided in units of meters, and are referenced to the North American Vertical Datum of 1988 (NAVD 88) over the conterminous United States.  The vertical reference will vary in other areas.  NED data are available nationally at resolutions of 1 arc-second (approx. 30 meters) and 1/3 arc-second (approx. 10 meters), and in limited areas at 1/9 arc-second (approx. 3 meters).  At present, the bulk of Alaska is only available at a 2 arc-second (approx. 60 meters) resolution, owing to a lack of higher resolution source data, though some areas are available at resolutions of 1 and 1/3 arc-second with plans for significant upgrades of the state over the next five years.  The NED is updated on a nominal two month cycle to integrate newly available, improved elevation source data.</abstract>
+      <purpose>The NED serves as the elevation layer of The National Map, and provides basic elevation information for earth science studies and mapping applications in the United States.  The data are utilized by the scientific and resource management communities for global change research, hydrologic modeling, resource monitoring, mapping and visualization applications.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>19990201</begdate>
+          <enddate>20131101</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>20131101</current>
+    </timeperd>
+    <status>
+      <progress>In work</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-160.0016666667</westbc>
+        <eastbc>-158.9983333334</eastbc>
+        <northbc>23.00166666666</northbc>
+        <southbc>21.99833333333</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>National Elevation Dataset (NED)</themekt>
+        <themekey>NATIONAL ELEVATION DATASET</themekey>
+        <themekey>NED</themekey>
+        <themekey>ELEVATION</themekey>
+        <themekey>GRID</themekey>
+        <themekey>LIGHT DETECTION AND RANGING</themekey>
+        <themekey>LiDAR</themekey>
+        <themekey>LIDAR</themekey>
+        <themekey>HIGH RESOLUTION</themekey>
+        <themekey>EARTH SCIENCE</themekey>
+        <themekey>LAND SURFACE</themekey>
+        <themekey>TOPOGRAPHY</themekey>
+        <themekey>LANDFORMS</themekey>
+        <themekey>DRAINAGE AREA</themekey>
+        <themekey>HYDROLOGY</themekey>
+        <themekey>HYDROLOGIC</themekey>
+        <themekey>HYDROLOGIC MODELING</themekey>
+        <themekey>TERRAIN ELEVATION</themekey>
+        <themekey> 1-DEGREE DEM</themekey>
+        <themekey>2-ARC-SECOND DEM</themekey>
+        <themekey>7.5-MINUTE DEM</themekey>
+        <themekey>CARTOGRAPHY</themekey>
+        <themekey>DEM</themekey>
+        <themekey>DIGITAL ELEVATION MODEL</themekey>
+        <themekey>DIGITAL MAPPING</themekey>
+        <themekey>DIGITAL TERRAIN MODEL</themekey>
+        <themekey>EROS</themekey>
+        <themekey>GEODATA</themekey>
+        <themekey>GIS</themekey>
+        <themekey>MAPPING</themekey>
+        <themekey>RASTER</themekey>
+        <themekey>USGS</themekey>
+        <themekey>U.S. GEOLOGICAL SURVEY</themekey>
+      </theme>
+      <place>
+        <placekt>U.S. Department of Commerce, 1995, Countries, dependencies, areas of special sovereignty, and their principal administrative divisions, Federal Information Processing Standard 10-4,): Washington, D.C., National Institute of Standards and Technology</placekt>
+        <placekey>NORTH AMERICA</placekey>
+        <placekey>UNITED STATES</placekey>
+        <placekey>UNITED STATES OF AMERICA</placekey>
+        <placekey>US</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Any downloading and use of these data signifies a user's agreement to comprehension and compliance of the USGS Standard Disclaimer.  Insure all portions of metadata are read and clearly understood before using these data in order to protect both user and USGS interests.</accconst>
+    <useconst>There is no guarantee or warranty concerning the accuracy of the data.  Users should be aware that temporal changes may have occurred since these data were collected and that some parts of these data may no longer represent actual surface conditions.  Users should not use these data for critical applications without a full awareness of its limitations.  Acknowledgement of the originating agencies would be appreciated in products derived from these data.  Any user who modifies the data is obligated to describe the types of modifications they perform.  User specifically agrees not to misrepresent the data, nor to imply that changes made were approved or endorsed by the USGS.  Please refer to http://www.usgs.gov/privacy.html for the USGS disclaimer.</useconst>
+    <datacred>None.  Acknowledgement of the originating agencies would be appreciated in products derived from these data.</datacred>
+  </idinfo>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Pixel</rasttype>
+      <rowcount>3612</rowcount>
+      <colcount>3612</colcount>
+      <vrtcount>1</vrtcount>
+      <rastbpp>32</rastbpp>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>0.00001</latres>
+        <longres>0.00001</longres>
+        <geogunit>Decimal degrees</geogunit>
+      </geograph>
+      <planar>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>
+            <absres>0.0002777777778</absres>
+            <ordres>0.0002777777778</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North American Datum of 1983</horizdn>
+        <ellips>Geodetic Reference System 80</ellips>
+        <semiaxis>6378137.000000</semiaxis>
+        <denflat>298.257222</denflat>
+      </geodetic>
+    </horizsys>
+    <vertdef>
+      <altsys>
+        <altdatum>North American Vertical Datum of 1988</altdatum>
+        <altres>1.000000</altres>
+        <altunits>meters</altunits>
+        <altenc>Implicit coordinate</altenc>
+      </altsys>
+    </vertdef>
+  </spref>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntorgp>
+        <cntpos>Customer Services Representative</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>USGS National Geospatial Program Office</address>
+          <address>12201 Sunrise Valley Drive</address>
+          <city>Reston</city>
+          <state>VA</state>
+          <postal>20192</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>1-888-ASK-USGS (1-888-275-8747)</cntvoice>
+        <cntvoice>Unknown</cntvoice>
+        <cntfax>Unknown</cntfax>
+        <cntemail>tnm_help@usgs.gov</cntemail>
+        <hours>Monday through Friday 8:00 AM to 4:00 PM Eastern Time Zone USA</hours>
+        <cntinst>Please visit http://www.usgs.gov/ask/ to contact us.</cntinst>
+      </cntinfo>
+    </distrib>
+    <resdesc>NED</resdesc>
+    <distliab>Although these data have been processed successfully on a computer system at the U.S. Geological Survey, Earth Resources Observation &amp; Science (EROS) Center, no warranty, expressed or implied, is made by either regarding the utility of the data on any system, nor shall the act of distribution constitute any such warranty.  The USGS will warranty the delivery of this product in computer-readable format and will offer appropriate adjustment of credit when the product is determined unreadable by correctly adjusted computer peripherals, or when the physical medium is delivered in damaged condition.  Requests for adjustments of credit must be made within 90 days from the date of this shipment from the ordering site.</distliab>
+  </distinfo>
+  <metainfo>
+    <metd>2013</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntorgp>
+        <cntpos>Customer Service Representative</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical address</addrtype>
+          <address>USGS Earth Resources Observation &amp; Science (EROS) Center</address>
+          <address>47914 252nd Street</address>
+          <city>Sioux Falls</city>
+          <state>SD</state>
+          <postal>57198-0001</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>605-594-6151</cntvoice>
+        <cntvoice>1-800-252-4547</cntvoice>
+        <cntfax>605-594-6589</cntfax>
+        <cntemail>webmapping@usgs.gov</cntemail>
+        <hours>0800 - 1600 CT, M - F (-6h CST/-5h CDT GMT)</hours>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+  <Esri>
+    <ModDate>20130123</ModDate>
+    <ModTime>11565100</ModTime>
+  </Esri>
+  <mdDateSt Sync="TRUE">20130123</mdDateSt>
+</metadata>
