@@ -2,10 +2,8 @@
 Generate maps of the continental United States in several projections
 and save to PNG files
 
-SciPy 2013 tutorial examples
-
-Kelsey Jordahl
-Enthought
+Author: Kelsey Jordahl, Enthought
+Scipy 2013 geospatial tutorial
 """
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
