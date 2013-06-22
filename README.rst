@@ -44,11 +44,14 @@ Finally, if all else fails, or you wish to be on the bleeding edge, you may inst
 
 will install the current development version of Shapely.
 
+Serge Ray has shared `his setup notes`_ for OS X 10.8.4 and anaconda. 
+
 .. _Enthought Canopy: https://www.enthought.com/products/canopy
 .. _anaconda: https://store.continuum.io/cshop/anaconda
 .. _scientific python stack: http://www.scipy.org/install.html
 .. _academic use: https://www.enthought.com/products/canopy/academic
 .. _Christoph Golke's binary packages: http://www.lfd.uci.edu/~gohlke/pythonlibs
+.. _his setup notes: osx-anaconda.md
 
 Known installation issues
 -------------------------
