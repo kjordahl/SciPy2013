@@ -13,6 +13,8 @@ Twitter geolocated data, [Twitter REST API](https://dev.twitter.com/docs/api)
 
 [Citibike](http://citibikenyc.com) station data from [http://citibikenyc.com/stations/json](http://citibikenyc.com/stations/json)
 
+New York City borough boundaries from [New York City Department of City Planning](http://www.nyc.gov/html/dcp/html/bytes/dwndistricts.shtml)
+
 Not included here:
 
 [manhattan.tif](http://public.enthought.com/~kjordahl/scipy/manhattan.tif) GeoTiff file should be downloaded separately.
