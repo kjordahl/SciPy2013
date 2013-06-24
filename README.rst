@@ -3,23 +3,25 @@ This repository contains materials for the tutorial *Using Geospatial Data With 
 Required packages
 -----------------
 
-- `pyproj`_ 
+- `pyproj`_ python interface to PROJ.4 library
 - `Basemap`_ plot on map projections using matplotlib
-- `gdal`_
-- `shapely`_
-- `fiona`_
-- `psycopg2`_ for connection to PostgreSQL/PostGIS database
+- `gdal`_ python bindings for Geospatial Data Abstraction Library (and OGR)
+- `shapely`_ pythonic library for geometric tasks
+- `fiona`_ pythonic interface to OGR data formats
 
 Optional packages
 ------------------
 
-- `Cartopy`_
-- `geoJSON`_
-- `SQLAlchemy`_
+- `Cartopy`_ Advanced mapping interface for python
+- `Descartes`_ Create matplotlib Patch objects from Shapely geometries
+- `geoJSON`_ reference implementation of the Python geo interface
+- `psycopg2`_ for connection to PostgreSQL/PostGIS database
+- `SQLAlchemy`_ Object Relational Model for SQL databases
 
 .. _pyproj: http://code.google.com/p/pyproj
 .. _Basemap: https://github.com/matplotlib/basemap
 .. _Cartopy: http://scitools.org.uk/cartopy
+.. _Descartes: https://pypi.python.org/pypi/descartes
 .. _geoJSON: https://pypi.python.org/pypi/geojson
 .. _gdal: https://pypi.python.org/pypi/GDAL
 .. _shapely: http://toblerity.github.io/shapely
