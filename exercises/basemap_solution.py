@@ -6,6 +6,7 @@ Exercise: Plotting with basemap
     a) Mercator
     b) Robinson
     c) Orthographic
+    d) Azimuthal equidistant
 
 2. Plot the following great circle routes on a global map:
     a) Hawaii to Hong Kong
