@@ -4,6 +4,9 @@ Using Geospatial Data With Python
 
 """
 
+import sys
+print 'Using python in', sys.prefix
+print sys.version
 
 def import_version(pkg):
     try:
