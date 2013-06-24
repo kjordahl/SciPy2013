@@ -41,7 +41,6 @@ try:
 except ImportError:
     print FAIL, 'Basemap not installed'
 
-import_version('psycopg2')
 
 print
 print 'Optional packages:'
@@ -54,4 +53,5 @@ else:
     print OK, 'geoJSON is installed'
 
 import_version('cartopy')
+import_version('psycopg2')
 import_version('sqlalchemy')
