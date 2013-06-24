@@ -7,7 +7,7 @@ Scipy 2013 geospatial tutorial
 import os
 import json
 import numpy as np
-from matplotlib.patches import Polygon
+from descartes.patch import PolygonPatch
 import geojson
 from pyproj import Proj, transform
 import matplotlib.pyplot as plt
@@ -15,7 +15,8 @@ from shapely.geometry import shape, Point, MultiPoint, LineString
 
 def plot_polygon(ax, poly, color='red'):
     a = np.asarray(poly.exterior)
-    ax.add_patch(Polygon(a, facecolor=color, alpha=0.3))
+    # without Descartes, we could make a Patch of exterior
+    ax.add_patch(PolygonPatch(poly, facecolor=color, alpha=0.3))
     ax.plot(a[:, 0], a[:, 1], color='black')
 
 def plot_multipolygon(ax, geom, color='red'):
@@ -57,13 +58,13 @@ man_arr = np.asarray(manhattan.exterior)
 # TODO: calculate area fractions below 59th Street
 
 # draw buffers around bike stations with 1, 2, and 3 block radius
-block = 260 # feet, size of Manhattan city block
-buffer = 1 * block # feet
-one_block = points.buffer(buffer).intersection(manhattan)
-buffer = 2 * block # feet
-two_blocks = points.buffer(buffer).intersection(manhattan)
-buffer = 3 * block # feet
-three_blocks = points.buffer(buffer).intersection(manhattan)
+block = 260 # Manhattan city block (feet)
+buffer = points.buffer(1 * block)
+one_block = buffer.intersection(manhattan)
+buffer = points.buffer(2 * block)
+two_blocks = buffer.intersection(manhattan)
+buffer = points.buffer(3 * block)
+three_blocks = buffer.intersection(manhattan)
 
 fig = plt.figure()
 fig.add_subplot(111, aspect='equal')
@@ -73,7 +74,6 @@ plt.plot(man_arr[:,0], man_arr[:, 1], 'black')
 plot_multipolygon(ax, one_block, 'blue')
 plot_multipolygon(ax, two_blocks, 'blue')
 plot_multipolygon(ax, three_blocks, 'blue')
-#x, y = m(lon, lat)
 plt.plot(pt_arr[:,0], pt_arr[:,1], marker='o', markersize=1, linestyle='None')
 plt.ylim(193000, 222000)
 plt.xlim(975000, 997000)
