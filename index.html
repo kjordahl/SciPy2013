@@ -47,6 +47,21 @@ URL: https://code.google.com/p/io-2012-slides
 <slide  >
   
     <hgroup>
+      <h2>Links for this tutorial</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Data, examples and exercises</p>
+<p>&nbsp;&nbsp;
+<a href="https://github.com/kjordahl/SciPy2013"><code>https://github.com/kjordahl/SciPy2013</code></a></p>
+<p>Slides</p>
+<p>&nbsp;&nbsp;
+<a href="http://kjordahl.github.io/SciPy2013/"><code>http://kjordahl.github.io/SciPy2013</code></a></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
       <h2>Scope of this tutorial</h2>
       <h3></h3>
     </hgroup>
@@ -439,11 +454,11 @@ and is not recognised as a supported dataset name.
 <slide  >
   
     <hgroup>
-      <h2>Exercise: reading a GeoTiff file with GDAL</h2>
+      <h2>Exercise: reading a GeoTIFF file with GDAL</h2>
       <h3></h3>
     </hgroup>
     <article ><p><center>
-<img src="images/orthophoto.jpg" height=500>
+<img src="images/orthophoto.jpg" height=500 title="exercises/geotiff.py">
 </center></p></article>
  
 </slide>
@@ -539,18 +554,16 @@ each record) to geospatial data in various formats.</p>
  
 </slide>
 
-<slide class="columns-2" >
+<slide  >
   
     <hgroup>
       <h2>Exercise: reading a shapefile with Fiona</h2>
       <h3></h3>
     </hgroup>
-    <article ><p><center>
+    <article ><p><code>exercises/geology.py</code></p>
+<p><center>
 <img src="images/njgeol.png" height=500>
-</center></p>
-<pre class="prettyprint">
-exercises/geology.py
-</pre></article>
+</center></p></article>
  
 </slide>
 
@@ -722,6 +735,8 @@ buffer = points.buffer(2 * block)
 two_blocks = buffer.intersection(man)
 buffer = points.buffer(3 * block)
 three_blocks = buffer.intersection(man)
+buffer = points.buffer(4 * block)
+four_blocks = buffer.intersection(man)
 </pre></p>
 <p><center>
 <img src="images/citibike.png" height=550>
@@ -735,8 +750,9 @@ three_blocks = buffer.intersection(man)
       <h2>Exercise: Shapely</h2>
       <h3></h3>
     </hgroup>
-    <article ><p><center>
-<img src="images/nyc_boros.png" height=500>
+    <article ><p><code>exercises/nyc.py</code></p>
+<p><center>
+<img src="images/nyc_boros.png" height=450>
 </center></p></article>
  
 </slide>
