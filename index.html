@@ -1,0 +1,871 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahe <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google IO 2012</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/app.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+<!-- <slide class="logoslide nobackground">
+  <article class="flexbox vcenter">
+    <span><img src="images/enthought-logo.png"></span>
+  </article>
+</slide>
+ -->
+<slide class="title-slide segue nobackground">
+  <aside class="gdbar"><img src="images/enthought-logo.png"></aside>
+  <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+  <hgroup class="auto-fadein">
+    <h1 data-config-title><!-- populated from slide_config.json --></h1>
+    <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+    <p data-config-presenter><!-- populated from slide_config.json --></p>
+  </hgroup>
+</slide>
+
+
+<slide  >
+  
+    <hgroup>
+      <h2>Scope of this tutorial</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>The emphasis of this tutorial will be on:</p>
+<ul class="build">
+<li>Open source tools for using geospatial data in python</li>
+<li>Python interfaces for major libraries</li>
+<li>"Pythonic" tools for working with data</li>
+<li>Interfacing with NumPy and the SciPy stack</li>
+<li>Hands-on exercises</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Outside the scope of this tutorial</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Some big topics we will not be covering (much):</p>
+<ul class="build">
+<li>Geospatial analysis </li>
+<li>Web mapping tools</li>
+<li>PostGIS (or other geospatial databases)</li>
+<li>Full GIS applications (e.g. ArcGIS and QGIS)</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Outline</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul class="build">
+<li>Map projections with basemap</li>
+<li>GDAL/OGR python bindings</li>
+<li>Reading vector data with Fiona</li>
+<li>Geometry with Shapely</li>
+<li>Advanced topics: PostGIS, interfacing with GIS</li>
+</ul></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>Map Projections</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/Flammarion.jpg" height=350>
+</center></p></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>What's wrong with this picture?</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/cyl.png" height=400>
+</center></p></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>An improvement?</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/merc.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>Now we're talking</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/lcc.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>Or preserve area</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/laea.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>Map Projections</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/Flammarion.jpg" height=350>
+</center></p>
+<p>"When people thought the earth was flat, they were wrong. When people thought the earth was spherical, they were wrong. But if you think that thinking the earth is spherical is just as wrong as thinking the earth is flat, then your view is wronger than both of them put together." -- Isaac Asimov</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Spatial Reference Systems</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Examples:</p>
+<ul>
+<li>EPSG:4326 latitude, longitude in WGS-84 coordinate system</li>
+<li>EPSG:900913 and EPSG:3857: Google spherical Mercator</li>
+<li>ESRI:102718: NAD 1983 StatePlane New York Long Island FIPS 3104 Feet</li>
+</ul>
+<p>Create an SRS with pyproj:</p>
+<pre class="prettyprint">
+>>> from pyproj import Proj
+>>> p = Proj(init='epsg:3857')
+>>> p.srs
+'+units=m +init=epsg:3857 '
+>>> p(-97.75, 30.25)
+(-10881480.225042492, 3535725.659799159)
+>>> p(-10881480.225042492, 3535725.659799159, inverse=True)
+(-97.75, 30.25)
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Basemap</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<a href=http://matplotlib.org/basemap/users/examples.html>
+<img src="images/basemap/contour1.png" height=150>
+<img src="images/basemap/hurrtracks.png" height=150>
+<img src="images/basemap/plotargo.png" height=150>
+<img src="images/basemap/plotdaynight.png" height=150></p>
+<p><img src="images/basemap/plotetopo5_00_00.png" height=150>
+<img src="images/basemap/plotetopo5_01_00.png" height=150>
+<img src="images/basemap/plothighsandlows.png" height=150>
+<img src="images/basemap/plotprecip.png" height=150></p>
+<p><img src="images/basemap/plotsst.png" height=150>
+<img src="images/basemap/plotwindvec_00_00.png" height=150>
+<img src="images/basemap/plotwindvec_01_00.png" height=150>
+<img src="images/basemap/plotgreatcircle.png" height=150>
+</a>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Example: Twitter heat map</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/tweets.png" height=450>
+</center></p>
+<footer class="source">405146 geolocated tweets collected in about 7 days
+</footer></article>
+ 
+</slide>
+
+<slide class="image" >
+  
+    <hgroup>
+      <h2>More bad maps</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>An actual map published on the <a href=http://news.sky.com/story/1107350/whistleblower-snowdens-whereabouts-a-mystery>Sky News website</a>:</p>
+<p><center>
+<img src="images/230613-snowden-route-map-v2-final-1-522x293.jpg" height=400>
+</center></p>
+<footer class="source">source: <a href=http://oliverobrien.co.uk/2013/06/snowden-route-maps>http://oliverobrien.co.uk/2013/06/snowden-route-maps</a></footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Exercise: Basemap</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Try to do better than this one, too:
+<center>
+<img src="images/article-0-1A78F3E2000005DC-774_634x480-568x430.jpg" height=400>
+</center></p>
+<footer class="source">Hint: one does not normally fly from Hawaii to Hong Kong via Spain.
+</footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Cartopy</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/cartopy.png">
+</center></p>
+<p>Cartopy is a Python package designed to make drawing maps for data analysis and visualisation as easy as possible.</p>
+<ul>
+<li>object oriented projection definitions</li>
+<li>point, line, polygon and image transformations between projections</li>
+<li>integration to expose advanced mapping in matplotlib</li>
+<li>integrated shapefile reading and Shapely</li>
+</ul></article>
+ 
+</slide>
+
+<slide class="columns-2" >
+  
+    <hgroup>
+      <h2>Cartopy example</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><font size=4>
+ax = plt.axes(projection=cartopy.crs.PlateCarree()) <br>
+ax.add_feature(cartopy.feature.LAND) <br>
+ax.add_feature(cartopy.feature.OCEAN) <br>
+ax.add_feature(cartopy.feature.COASTLINE) <br>
+ax.add_feature(cartopy.feature.BORDERS, linestyle=':') <br>
+ax.add_feature(cartopy.feature.LAKES, alpha=0.5) <br>
+ax.add_feature(cartopy.feature.RIVERS) <br>
+ax.set_extent([-20, 60, -40, 40]) <br>
+plt.show() <br>
+</font></p>
+<p><img src="images/africa.png" height=400></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Vector and raster data</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Vector data includes points, lines, polygons</p>
+<p><center>
+<img src="images/mass/v_schools_small.jpg" height=125>
+&nbsp;&nbsp;
+<img src="images/mass/v_highway_small.gif" height=125>
+&nbsp;&nbsp;
+<img src="images/mass/v_housedistricts_small.jpg" height=125>
+</center></p>
+<p>Raster data includes images, digital elevation models, 2-D fields </p>
+<p><center>
+<img src="images/mass/r_orthophoto_small.jpg" height=125>
+&nbsp;&nbsp;
+<img src="images/mass/r_relief_small.jpg" height=125>
+&nbsp;&nbsp;
+<img src="images/mass/r_nauticalchart_small.jpg" height=125>
+</center></p>
+<footer class="source">source: <a href=http://www.mass.gov/anf/research-and-tech/it-serv-and-support/application-serv/office-of-geographic-information-massgis/>MassGIS</a> by way of <a href=https://geodata.ethz.ch/geovite/tutorials/L2GeodataStructuresAndDataModels/en/html/unit_u4VecVsRas.html>ETH Zurich</a></footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>GDAL</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><a href=http://www.gdal.org/>GDAL (Geospatial Data Abstraction Library)</a> is the open source Swiss
+Army knife of raster formats.  It also includes the OGR simple
+features library for vector formats.</p>
+<p><center>
+<img src="images/gdal_logo.png" height=200>
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+<img src="images/osgeo.png" height=150>
+</center></p>
+<p>GDAL's python bindings expose most of the functionality of GDAL.</p>
+<pre class="prettyprint">
+>>> from osgeo import gdal
+>>> from osgeo import ogr
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>GDAL drivers</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><pre class="prettyprint">
+>>> for i in range(gdal.GetDriverCount()):
+...    print gdal.GetDriver(i).LongName
+Virtual Raster
+GeoTIFF
+National Imagery Transmission Format
+Raster Product Format TOC format
+ECRG TOC format
+Erdas Imagine Images (.img)
+CEOS SAR Image
+CEOS Image
+JAXA PALSAR Product Reader (Level 1.1/1.5)
+Ground-based SAR Applications Testbed File Format (.gff)
+ELAS
+Arc/Info Binary Grid
+Arc/Info ASCII Grid
+GRASS ASCII Grid
+...
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>GDAL: reading raster data</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/kauai.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>GDAL: ReadAsArray()</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Most of the GDAL bindings are straightforward wrappers of their C++
+counterparts.  One python-specific method is <code>ReadAsArray()</code>.</p>
+<pre class="prettyprint">
+img = 'filename.img'
+geo = gdal.Open(img)
+arr = geo.ReadAsArray()
+imshow(arr, cmap=cm.BrBG_r)
+</pre>
+
+<p>May require further processing of the array data, but now it is just a NumPy array.</p>
+<p>See <code>examples/kauai.py</code></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>GDAL python "gotcha"</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Python bindings do not raise exceptions for common errors.
+For example:</p>
+<pre class="prettyprint">
+>>> from osgeo import gdal
+>>> f = gdal.Open('foo.img')
+>>> print f
+None
+</pre>
+
+<p>You can enable exceptions explicitly with <code>UseExceptions()</code>:</p>
+<pre class="prettyprint">
+>>> gdal.UseExceptions()
+>>> from osgeo import gdal
+>>> f = gdal.Open('foo.img')
+...
+RuntimeError: `foo.img' does not exist in the file system,
+and is not recognised as a supported dataset name.
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Exercise: reading a GeoTiff file with GDAL</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/orthophoto.jpg" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Translating between vector formats with OGR</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>It's hard to beat <code>ogr2ogr</code> for translating from one vector file format to another.</p>
+<pre class="prettyprint">
+$ ogr2ogr -f geojson coutries.geojson ne_50m_admin_0_countries.shp
+</pre>
+
+<p>Translate the Natural Earth vector data to GeoJSON.</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Translating between vector formats with OGR</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/countries.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>OGR drivers</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><pre class="prettyprint">
+>>> for i in range(ogr.GetDriverCount()):
+...    print ogr.GetDriver(i).name
+ESRI Shapefile
+MapInfo File
+UK .NTF
+SDTS
+TIGER
+S57
+DGN
+VRT
+REC
+Memory
+...
+</pre>
+
+<p>see <code>examples/ogr_read.py</code> for a full example of reading a vector file with OGR in python.</p></article>
+ 
+</slide>
+
+<slide class="columns-2" >
+  
+    <hgroup>
+      <h2>Fiona</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Fiona is a minimalist python package for reading (and writing) vector
+data in python.  Fiona provides python objects (e.g. a dictionary for
+each record) to geospatial data in various formats.</p>
+<pre class="prettyprint">
+>>> import fiona
+>>> c = fiona.open('data/test_uk.shp')
+>>> rec = c.next()
+>>> rec.keys()
+{'AREA': 244820.0,
+ 'CAT': 232.0,
+ 'CNTRY_NAME': u'United Kingdom',
+ 'FIPS_CNTRY': u'UK',
+ 'POP_CNTRY': 60270708.0}
+</pre>
+
+<div style="height:200px;"></div>
+
+<pre class="prettyprint">
+>>> rec['geometry']
+{'coordinates': [[(0.899167, 51.357216),
+   (0.885278, 51.35833),
+   (0.7875, 51.369438),
+   (0.781111, 51.370552),
+   (0.904722, 51.358055),
+   (0.899167, 51.357216)]],
+ 'type': 'Polygon'}
+</pre>
+
+<p>Example: see IPython notebook "reading vector data with Fiona"</p></article>
+ 
+</slide>
+
+<slide class="columns-2" >
+  
+    <hgroup>
+      <h2>Exercise: reading a shapefile with Fiona</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/njgeol.png" height=500>
+</center></p>
+<pre class="prettyprint">
+exercises/geology.py
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Shapely</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Shapely is a python library for geometric operations using the GEOS library.</p>
+<p>Shapely can perform:</p>
+<ul class="build">
+<li>geometry validation</li>
+<li>geometry creation (e.g. collections)</li>
+<li>geometry operations</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Shapely geometric operations</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/shapely/difference.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Shapely geometric operations</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/shapely/intersection-sym-difference.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Shapely geometric operations</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/shapely/cascaded_union.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Shapely geometric operations</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/shapely/union.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Dilating a line</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><pre class="prettyprint">
+>>> line = LineString([(0, 0), (1, 1), (0, 2), (2, 2), (3, 1), (1, 0)])
+>>> dilated = line.buffer(0.5)
+>>> eroded = dilated.buffer(-0.3)
+</pre>
+
+<p><center>
+<img src="images/shapely/buffer-trim.png" height=300>
+</center></p>
+<footer class="source">Source: Shapely documentation</footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Binary predicates</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><code>object.almost_equals(other[, decimal=6])</code></p>
+<p><code>object.contains(other)</code></p>
+<p><code>object.crosses(other)</code></p>
+<p><code>object.disjoint(other)</code></p>
+<p><code>object.equals(other)</code></p>
+<p><code>object.intersects(other)</code></p>
+<p><code>object.touches(other)</code></p>
+<p><code>object.within(other)</code></p>
+<footer class="source"><a href=http://toblerity.github.io/shapely/manual.html#binary-predicates>details</a></footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Coordinate tuples and x, y sequences</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Zip is your friend!  Use it with tuple unpacking to change between
+sequences of (x, y) pairs and seperate x and y sequences.</p>
+<pre class="prettyprint">
+>>> pts = [(0, 0), (1, 0), (1, 1), (2, 1), (2, 2)]
+>>> x, y = zip(*pts)
+>>> print x, y
+(0, 1, 1, 2, 2) (0, 0, 1, 1, 2)
+</pre>
+
+<p>Also, instead of calling <code>f(x, y)</code>, you can just use</p>
+<pre class="prettyprint">
+>>> f(*zip(*pts))
+</pre>
+
+<p>And when size matters,</p>
+<pre class="prettyprint">
+>>> from itertools import izip
+</pre></article>
+ 
+</slide>
+
+<slide class="fill" >
+  
+    <hgroup>
+      <h2>Citibike</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/citibike_photo.jpg" height=550>
+</center></p></article>
+ 
+</slide>
+
+<slide class="columns-2" >
+  
+    <hgroup>
+      <h2>Shapely Example</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Citibike dock locations in Manhattan</p>
+<p><center>
+<img src="images/citibike_points.png" height=550>
+</center></p></article>
+ 
+</slide>
+
+<slide class="columns-2" >
+  
+    <hgroup>
+      <h2>Shapely Example</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Citibike dock locations in Manhattan
+<pre class="prettyprint">
+block = 260 # Manhattan city block (ft)
+buffer = points.buffer(1 * block)
+one_block = buffer.intersection(man)
+buffer = points.buffer(2 * block)
+two_blocks = buffer.intersection(man)
+buffer = points.buffer(3 * block)
+three_blocks = buffer.intersection(man)
+</pre></p>
+<p><center>
+<img src="images/citibike.png" height=550>
+</center></p></article>
+ 
+</slide>
+
+<slide class="fill" >
+  
+    <hgroup>
+      <h2>Exercise: Shapely</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/nyc_boros.png" height=500>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>PostGIS</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/postgresql-logo.png" height=200>
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+<img src="images/postgis-logo.jpg" height=200>
+</center></p>
+<p>PostGIS is a spatial database extender for PostgreSQL object-relational database. It adds support for geographic objects allowing location queries to be run in SQL.</p>
+<pre class="prettyprint" data-lang="SQL">
+SELECT rocktype1, ST_MULTI(ST_Union(the_geom)) As the_geom
+ INTO gis_schema.rocks
+ FROM gis_schema.njgeol
+ GROUP BY rocktype1;
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>PyQGIS</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><a href=http://www.qgis.org/pyqgis-cookbook/intro.html><img src="images/QGis_Logo.png" height=200></a></p>
+<p>Three ways that QGIS can interact with python:</p>
+<ul class="build">
+<li>Python console in QGIS application</li>
+<li>Python plugins</li>
+<li>Use PyQGIS in custom application</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>ArcGIS</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>ArcPy is an official scripting layer for ESRI ArcGIS</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>D3</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<a href=https://github.com/mbostock/d3/wiki/Geo-Projections><img src="images/d3.png" height=500></a>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>leaflet</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<a href=http://leafletjs.com/><img src="images/leaflet.png" height=500></a>
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Further references</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li><a href="http://mapnik.org/">Mapnik</a></li>
+<li><a href="">GeoDjango</a></li>
+<li><a href="http://www.geoalchemy.org">GeoAlchemy</a></li>
+<li><a href="http://sgillies.net/blog">Sean Gillies' blog</a></li>
+<li><a href="http://nbviewer.ipython.org/4251308">Exploring climate data notebook</a></li>
+</ul></article>
+ 
+</slide>
+
+
+<slide class="thank-you-slide segue nobackground">
+  <aside class="gdbar right"><img src="images/enthought-logo.png"></aside>
+  <article class="flexbox vleft auto-fadein">
+    <h2>&lt;Thank You!&gt;</h2>
+    <p>contact info:</p>
+  </article>
+  <p class="auto-fadein" data-config-contact>
+    <!-- populated from slide_config.json -->
+  </p>
+</slide>
+
+<!-- <slide class="logoslide dark nobackground">
+  <article class="flexbox vcenter">
+    <span><img src="images/enthought-logo.png"></span>
+  </article>
+</slide> -->
+
+<slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
