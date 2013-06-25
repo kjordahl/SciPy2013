@@ -764,17 +764,42 @@ four_blocks = buffer.intersection(man)
       <h3></h3>
     </hgroup>
     <article ><p><center>
-<img src="images/postgresql-logo.png" height=200>
+<img src="images/postgresql-logo.png" height=150>
 &nbsp;&nbsp;
 &nbsp;&nbsp;
-<img src="images/postgis-logo.jpg" height=200>
+<img src="images/postgis-logo.jpg" height=150>
 </center></p>
 <p>PostGIS is a spatial database extender for PostgreSQL object-relational database. It adds support for geographic objects allowing location queries to be run in SQL.</p>
 <pre class="prettyprint" data-lang="SQL">
-SELECT rocktype1, ST_MULTI(ST_Union(the_geom)) As the_geom
- INTO gis_schema.rocks
- FROM gis_schema.njgeol
- GROUP BY rocktype1;
+# select ST_NPoints(the_geom), rocktype1 FROM gis_schema.njgeol;
+ st_npoints |         rocktype1
+------------+----------------------------
+        698 | limestone
+        763 | siltstone
+...
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Connecting to PostgreSQL with python</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>connect to PostGIS database using the python <a href="http://www.python.org/dev/peps/pep-0249/">DB API</a></p>
+<pre class="prettyprint" data-lang="python">
+import psycopg2 as db
+conn = db.connect("host=localhost dbname=gis_test user=kels")
+cursor = conn.cursor()
+sql = 'SELECT ST_NPoints(the_geom), rocktype1 FROM gis_schema.njgeol'
+cursor.execute(sql)
+results = cursor.fetchall()
+conn.commit()
+conn.close()
+
+for n, rocktype in results:
+    print n, 'points in a polygon of', rocktype
 </pre></article>
  
 </slide>
