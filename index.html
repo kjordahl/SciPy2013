@@ -769,7 +769,7 @@ four_blocks = buffer.intersection(man)
 &nbsp;&nbsp;
 <img src="images/postgis-logo.jpg" height=150>
 </center></p>
-<p>PostGIS is a spatial database extender for PostgreSQL object-relational database. It adds support for geographic objects allowing location queries to be run in SQL.</p>
+<p>PostGIS is a spatial database extender for PostgreSQL that adds support for geographic objects allowing location queries to be run in SQL.</p>
 <pre class="prettyprint" data-lang="SQL">
 # select ST_NPoints(the_geom), rocktype1 FROM gis_schema.njgeol;
  st_npoints |         rocktype1
@@ -801,6 +801,28 @@ conn.close()
 for n, rocktype in results:
     print n, 'points in a polygon of', rocktype
 </pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>PostGIS GEOGRAPHY</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="images/cartesian_spherical.jpg" height=200>
+</center></p>
+<p>GEOMETRY</p>
+<ul class="build">
+<li>Cartesian</li>
+<li>Uses projected units for calculations</li>
+</ul>
+<p>GEOGRAPHY</p>
+<ul class="build">
+<li>Spherical (Ellipsoidal)</li>
+<li>Distance and area calulations in meters</li>
+</ul></article>
  
 </slide>
 
